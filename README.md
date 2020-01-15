@@ -8,12 +8,12 @@ First of all, if you're using `Windows`, replace `EXPORT` to `set` on the `scrip
 
 ### Commands
 
-Then run `yarn` to install all dependencies
+Then run `npm` to install all dependencies
 
-To run in development mode `yarn start`
+To run in development mode `npm start`
 
-To build in development mode `yarn build:dev`
+To build in development mode `npm run build:dev`
 
-To run in production mode `yarn start:prd`
+To run in production mode `npm run start:prd`
 
-To build in production mode `yarn build`
+To build in production mode `npm run build`
