@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { withRouter } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import Input from '../Input'
 import IcoSearch from '../../assets/search.svg'
@@ -19,12 +19,28 @@ const SearchBar = styled(Grid)`
   }
 `
 
-export default withRouter(props => {
+type SearchBarProps = {
+  doSearch: string => void,
+}
+
+export default ({ doSearch }: SearchBarProps) => {
   const [currentLocation, setCurrentLocation] = useState([])
+  const [searchText, setSearchText] = useState('')
+  const history = useHistory()
 
   const handleSearch = e => {
     // TODO Implementar busca por endereco
     console.log(e)
+  }
+
+  const handleChange = e => {
+    setSearchText(e.target.value)
+  }
+
+  const handleKey = e => {
+    if (e.keyCode === 13) {
+      doSearch(searchText)
+    }
   }
 
   const handlePin = e => {
@@ -33,15 +49,20 @@ export default withRouter(props => {
         coordinates.coords.latitude,
         coordinates.coords.longitude,
       ])
-      props.history.push('/results')
+      history.push('/results')
     })
   }
 
   return (
     <SearchBar>
-      <Input placeholder="digite seu endereço aqui" />
-      <IcoSearch height={35} onClick={handleSearch} />
+      <Input
+        placeholder="digite seu endereço aqui"
+        onKeyDown={handleKey}
+        value={searchText}
+        onChange={handleChange}
+      />
+      <IcoSearch height={35} onClick={() => doSearch(searchText)} />
       <IcoPin height={35} onClick={handlePin} />
     </SearchBar>
   )
-})
+}

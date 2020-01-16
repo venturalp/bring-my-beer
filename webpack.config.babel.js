@@ -8,6 +8,7 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 
 const distPath = 'dist'
 const environment = process.env.NODE_ENV.trim()
+console.log('environment', environment)
 
 const uglifyConfig = new UglifyJsPlugin({
   test: /\.js(\?.*)?$/i,
@@ -30,6 +31,7 @@ const htmlPlugin = new HtmlWebpackPlugin({
   meta: CONFIG.meta,
   favicon: './src/assets/small-logo.png',
   inject: false, // it is necessary to avoid duplicate meta tags and to allows html-webpack-template works properly
+  minify: environment === 'production',
 })
 
 export default {

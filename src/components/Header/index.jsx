@@ -20,8 +20,8 @@ export default () => {
   return (
     <Header>
       <Grid justify="space-between" container>
-        <img src={logo} width={175} />
-        <h1>Bring my beer!</h1>
+        {/* <img src={logo} width={175} /> */}
+        {/* <h1>Bring my beer!</h1> */}
       </Grid>
     </Header>
   )

@@ -1,14 +1,23 @@
 // @flow
 import React, { Component } from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import routes from './routes'
+import Loading from './components/Loading'
 
 export default () => {
+  const isLoading = useSelector(
+    ({ generalReducer }) => generalReducer.isLoading,
+  )
+
   return (
     <BrowserRouter>
-      {routes.map(route => (
-        <Route {...route} key={route.path} />
-      ))}
+      {isLoading && <Loading />}
+      <Switch>
+        {routes.map(route => (
+          <Route {...route} key={route.path} />
+        ))}
+      </Switch>
     </BrowserRouter>
   )
 }

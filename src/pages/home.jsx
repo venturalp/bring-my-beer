@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import TemplateMaster from '../templates/Master'
-import { searchByAddress } from '../actions'
+import { searchByAddress, setIsLoading } from '../actions'
 import SearchBar from '../components/SearchBar'
 import Grid from '../components/Grid'
 
@@ -12,21 +12,29 @@ const HomeWrapper = styled(Grid)`
 `
 
 const Home = () => {
-  const contacts = useSelector(
+  const results = useSelector(
     ({ generalReducer }) => generalReducer.addressResults,
   )
   const dispatch = useDispatch()
 
   const doSearch = async input => {
+    dispatch(setIsLoading(true))
     dispatch(searchByAddress(input))
   }
 
-  useEffect(() => {}, [contacts])
+  useEffect(() => {
+    dispatch(setIsLoading(false))
+    if (results && results.resourceSets && results.resourceSets[0]) {
+      console.log([
+        ...results.resourceSets[0].resources[0].geocodePoints[0].coordinates,
+      ])
+    }
+  }, [results])
 
   return (
     <TemplateMaster>
       <HomeWrapper>
-        <SearchBar />
+        <SearchBar doSearch={doSearch} />
       </HomeWrapper>
     </TemplateMaster>
   )

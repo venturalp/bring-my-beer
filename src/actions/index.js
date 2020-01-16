@@ -1,6 +1,6 @@
 import 'es6-promise/auto'
 import 'isomorphic-fetch'
-import { SEARCH_BY_ADDRESS } from './types'
+import { SEARCH_BY_ADDRESS, SET_IS_LOADING, SET_POSITION } from './types'
 
 export const searchByAddress = address => async dispatch => {
   let success = true
@@ -19,5 +19,19 @@ export const searchByAddress = address => async dispatch => {
       addressResults: { ...result },
       success,
     },
+  })
+}
+
+export const setIsLoading = value => dispatch => {
+  dispatch({
+    type: SET_IS_LOADING,
+    payload: value,
+  })
+}
+
+export const setPosition = value => dispatch => {
+  dispatch({
+    type: SET_POSITION,
+    payload: value,
   })
 }

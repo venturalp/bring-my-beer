@@ -1,1 +1,3 @@
 export const SEARCH_BY_ADDRESS = 'SEARCH_BY_ADDRESS'
+export const SET_IS_LOADING = 'SET_IS_LOADING'
+export const SET_POSITION = 'SET_POSITION'
