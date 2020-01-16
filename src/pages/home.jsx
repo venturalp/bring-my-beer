@@ -4,6 +4,12 @@ import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import TemplateMaster from '../templates/Master'
 import { searchByAddress } from '../actions'
+import SearchBar from '../components/SearchBar'
+import Grid from '../components/Grid'
+
+const HomeWrapper = styled(Grid)`
+  width: 100%;
+`
 
 const Home = () => {
   const contacts = useSelector(
@@ -19,7 +25,9 @@ const Home = () => {
 
   return (
     <TemplateMaster>
-      <div>CONTEUDO HOME{JSON.stringify(contacts)}</div>
+      <HomeWrapper>
+        <SearchBar />
+      </HomeWrapper>
     </TemplateMaster>
   )
 }
