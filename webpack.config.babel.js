@@ -28,6 +28,7 @@ const htmlPlugin = new HtmlWebpackPlugin({
   title: 'Bring my beer &#127867; - Guilherme Ventura de Souza',
   lang: 'pt-br',
   meta: CONFIG.meta,
+  favicon: './src/assets/small-logo.png',
   inject: false, // it is necessary to avoid duplicate meta tags and to allows html-webpack-template works properly
 })
 
