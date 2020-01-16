@@ -18,7 +18,7 @@ const GlobalStyles = createGlobalStyle`
     margin: 0px;
     font-family: Roboto, sans-serif;
     font-size: 16px;
-    background-color: ${props => props.theme.appBg};
+    color: ${props => props.theme.txt};
   }
 `
 

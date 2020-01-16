@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import TemplateMaster from '../templates/Master'
@@ -11,7 +11,17 @@ const Home = () => {
   )
   const dispatch = useDispatch()
 
-  return <TemplateMaster>conteúdo home</TemplateMaster>
+  const doSearch = async input => {
+    dispatch(searchByAddress(input))
+  }
+
+  useEffect(() => {}, [contacts])
+
+  return (
+    <TemplateMaster>
+      <div>CONTEUDO HOME{JSON.stringify(contacts)}</div>
+    </TemplateMaster>
+  )
 }
 
 export default Home

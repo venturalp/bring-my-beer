@@ -9,7 +9,10 @@ export default (state = INITIAL_STATE, action) => {
     case SEARCH_BY_ADDRESS:
       return {
         ...state,
-        addressResults: [...state.addressResults, action.payload],
+        addressResults: {
+          ...state.addressResults,
+          ...action.payload.addressResults,
+        },
       }
     default:
       return state
