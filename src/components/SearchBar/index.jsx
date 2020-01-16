@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import Input from '../Input'
 import IcoSearch from '../../assets/search.svg'
 import IcoPin from '../../assets/pin.svg'
 import Grid from '../Grid'
 import { getLocation } from '../../utils/location'
+import { setPosition } from '../../actions/index'
 
 const SearchBar = styled(Grid)`
   width: 100%;
@@ -28,11 +30,6 @@ export default ({ doSearch }: SearchBarProps) => {
   const [searchText, setSearchText] = useState('')
   const history = useHistory()
 
-  const handleSearch = e => {
-    // TODO Implementar busca por endereco
-    console.log(e)
-  }
-
   const handleChange = e => {
     setSearchText(e.target.value)
   }
@@ -49,9 +46,15 @@ export default ({ doSearch }: SearchBarProps) => {
         coordinates.coords.latitude,
         coordinates.coords.longitude,
       ])
-      history.push('/results')
     })
   }
+
+  useEffect(() => {
+    if (currentLocation.length) {
+      useDispatch(setPosition(currentLocation))
+      history.push('/results')
+    }
+  }, currentLocation)
 
   return (
     <SearchBar>

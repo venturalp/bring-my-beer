@@ -6,7 +6,7 @@ import {
 import _get from 'lodash/get'
 
 const INITIAL_STATE = {
-  addressResults: [],
+  position: [],
   isLoading: false,
 }
 
@@ -17,7 +17,7 @@ export default (state = INITIAL_STATE, action) => {
 
       return {
         ...state,
-        addressResults: [
+        position: [
           ..._get(
             results,
             'resourceSets[0].resources[0].geocodePoints[0].coordinates',
