@@ -1,3 +1,4 @@
+// @flow
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -7,7 +8,7 @@ import IcoSearch from '../../assets/search.svg'
 import IcoPin from '../../assets/pin.svg'
 import Grid from '../Grid'
 import { getLocation } from '../../utils/location'
-import { setPosition } from '../../actions/index'
+import { setPosition, getProducts } from '../../actions'
 
 const SearchBar = styled(Grid)`
   width: 100%;
@@ -23,12 +24,19 @@ const SearchBar = styled(Grid)`
 
 type SearchBarProps = {
   doSearch: string => void,
+  hasPin: boolean,
+  placeholder: string,
 }
 
-export default ({ doSearch }: SearchBarProps) => {
+export default ({
+  doSearch,
+  hasPin = true,
+  placeholder = 'digite seu endereço aqui',
+}: SearchBarProps) => {
   const [currentLocation, setCurrentLocation] = useState([])
   const [searchText, setSearchText] = useState('')
   const history = useHistory()
+  const dispatch = useDispatch()
 
   const handleChange = e => {
     setSearchText(e.target.value)
@@ -51,7 +59,7 @@ export default ({ doSearch }: SearchBarProps) => {
 
   useEffect(() => {
     if (currentLocation.length) {
-      useDispatch(setPosition(currentLocation))
+      dispatch(setPosition(currentLocation))
       history.push('/results')
     }
   }, currentLocation)
@@ -59,13 +67,13 @@ export default ({ doSearch }: SearchBarProps) => {
   return (
     <SearchBar>
       <Input
-        placeholder="digite seu endereço aqui"
+        placeholder={placeholder}
         onKeyDown={handleKey}
         value={searchText}
         onChange={handleChange}
       />
       <IcoSearch height={35} onClick={() => doSearch(searchText)} />
-      <IcoPin height={35} onClick={handlePin} />
+      {hasPin && <IcoPin height={35} onClick={handlePin} />}
     </SearchBar>
   )
 }

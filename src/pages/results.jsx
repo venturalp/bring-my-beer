@@ -9,12 +9,5 @@ export default () => {
     return generalReducer.position
   })
 
-  useEffect(() => {
-    return () => {
-      console.log('clean results')
-      dispatch(setPosition([]))
-    }
-  }, [])
-
   return <Grid>RESULTADOS {JSON.stringify(position)}</Grid>
 }

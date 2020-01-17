@@ -13,7 +13,7 @@ const HomeWrapper = styled(Grid)`
 `
 
 const Home = () => {
-  const [shouldRedirect, setShouldRedirect] = useState()
+  const [shouldRedirect, setShouldRedirect] = useState(false)
   const results = useSelector(({ generalReducer }) => generalReducer.position)
   const dispatch = useDispatch()
   const history = useHistory()
@@ -21,13 +21,12 @@ const Home = () => {
   const doSearch = async input => {
     dispatch(setIsLoading(true))
     dispatch(searchByAddress(input))
+    setShouldRedirect(true)
   }
 
   useEffect(() => {
     dispatch(setIsLoading(false))
-    console.log(results.length)
-    if (results.length) {
-      console.log('push home')
+    if (results.length && shouldRedirect) {
       history.push('/results')
     }
   }, [results])

@@ -1,6 +1,15 @@
 import 'es6-promise/auto'
 import 'isomorphic-fetch'
-import { SEARCH_BY_ADDRESS, SET_IS_LOADING, SET_POSITION } from './types'
+import {
+  SEARCH_BY_ADDRESS,
+  SET_IS_LOADING,
+  SET_POSITION,
+  GET_ADDRESS_POC,
+  GET_CATEGORIES,
+  GET_PRODUCTS,
+} from './types'
+import { querySearch } from '../queries/search'
+import { queryCategories, queryProducts } from '../queries/products'
 
 export const searchByAddress = address => async dispatch => {
   let success = true
@@ -33,5 +42,73 @@ export const setPosition = value => dispatch => {
   dispatch({
     type: SET_POSITION,
     payload: value,
+  })
+}
+
+export const getAddressPoc = ({
+  lat = '-23.632919',
+  long = '-46.699453',
+} = {}) => async dispatch => {
+  const variables = {
+    algorithm: 'NEAREST',
+    lat,
+    long,
+    now: new Date().toISOString(),
+  }
+
+  const result = await fetch(
+    'https://api.code-challenge.ze.delivery/public/graphql',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: querySearch, variables }),
+    },
+  ).then(res => res.json())
+  console.log('result', result)
+  dispatch({
+    type: GET_ADDRESS_POC,
+    payload: result.data,
+  })
+}
+
+export const getCategories = () => async dispatch => {
+  const result = await fetch(
+    'https://api.code-challenge.ze.delivery/public/graphql',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: queryCategories }),
+    },
+  ).then(res => res.json())
+  console.log('result', result)
+  dispatch({
+    type: GET_CATEGORIES,
+    payload: result.data,
+  })
+}
+
+export const getProducts = ({
+  search = '',
+  categoryId = 0,
+  id = 532,
+} = {}) => async dispatch => {
+  const variables = {
+    id,
+    search,
+    categoryId,
+  }
+
+  const result = await fetch(
+    'https://api.code-challenge.ze.delivery/public/graphql',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: queryProducts, variables }),
+    },
+  ).then(res => res.json())
+  console.log('result', result)
+  dispatch({
+    type: GET_PRODUCTS,
+    payload: result.data,
   })
 }
