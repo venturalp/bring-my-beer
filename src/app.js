@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import { useSelector } from 'react-redux'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { HashRouter as BrowserRouter, Route, Switch } from 'react-router-dom' // Using HashRouter instead of BrowserRouter to Router works properly at Netlify
 import routes from './routes'
 import Loading from './components/Loading'
 

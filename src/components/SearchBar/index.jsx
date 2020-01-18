@@ -62,7 +62,7 @@ export default ({
       dispatch(setPosition(currentLocation))
       history.push('/results')
     }
-  }, currentLocation)
+  }, [currentLocation])
 
   return (
     <SearchBar>
