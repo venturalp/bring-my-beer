@@ -14,7 +14,6 @@ const SearchBar = styled(Grid)`
   width: 100%;
   input {
     flex-grow: 2;
-    margin-bottom: 0px;
   }
   svg {
     cursor: pointer;

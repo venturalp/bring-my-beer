@@ -13,6 +13,14 @@ const InputStyled = styled.input`
     outline: none;
     border-color: ${props => props.theme.txt};
   }
+  &::placeholder {
+    color: ${props => props.theme.inputBorder};
+  }
+`
+
+const InputWrapper = styled.div`
+  p {
+  }
 `
 
 export default (props: Object) => {
