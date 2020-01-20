@@ -12,8 +12,9 @@ import { setPosition, getProducts } from '../../actions'
 
 const SearchBar = styled(Grid)`
   width: 100%;
+  padding-bottom: 16px;
   input {
-    flex-grow: 2;
+    margin-bottom: 0;
   }
   svg {
     cursor: pointer;
@@ -22,28 +23,41 @@ const SearchBar = styled(Grid)`
 `
 
 type SearchBarProps = {
-  doSearch: string => void,
-  hasPin: boolean,
-  placeholder: string,
+  doSearch: void => void,
+  hasPin?: boolean,
+  placeholder?: string,
+  doAfterSearch?: void => void,
+  className?: string,
+  value: string,
+  onChange: void => void,
 }
 
 export default ({
   doSearch,
   hasPin = true,
   placeholder = 'digite seu endereço aqui',
+  doAfterSearch,
+  className,
+  value,
+  onChange,
 }: SearchBarProps) => {
   const [currentLocation, setCurrentLocation] = useState([])
-  const [searchText, setSearchText] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
   const history = useHistory()
   const dispatch = useDispatch()
 
-  const handleChange = e => {
-    setSearchText(e.target.value)
-  }
-
   const handleKey = e => {
     if (e.keyCode === 13) {
-      doSearch(searchText)
+      validateSearch()
+    }
+  }
+
+  const validateSearch = () => {
+    if (!value) {
+      setErrorMessage('Por favor, preencha com um endereço válido!')
+    } else {
+      setErrorMessage('')
+      doSearch()
     }
   }
 
@@ -59,19 +73,21 @@ export default ({
   useEffect(() => {
     if (currentLocation.length) {
       dispatch(setPosition(currentLocation))
-      history.push('/results')
+      if (doAfterSearch) doAfterSearch()
     }
   }, [currentLocation])
 
   return (
-    <SearchBar>
+    <SearchBar className={className}>
       <Input
         placeholder={placeholder}
         onKeyDown={handleKey}
-        value={searchText}
-        onChange={handleChange}
+        value={value}
+        onChange={onChange}
+        message={errorMessage}
+        error={errorMessage !== ''}
       />
-      <IcoSearch height={35} onClick={() => doSearch(searchText)} />
+      <IcoSearch height={35} onClick={validateSearch} />
       {hasPin && <IcoPin height={35} onClick={handlePin} />}
     </SearchBar>
   )

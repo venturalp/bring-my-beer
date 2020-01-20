@@ -1,28 +1,41 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { InputBase } from '../../utils/styles'
 
 const InputStyled = styled.input`
-  border-radius: 4px;
-  border: 1px solid ${props => props.theme.inputBorder};
-  font-size: 14px;
-  line-height: 1;
-  padding: 9px 10px 7px;
-  margin-bottom: 16px;
-  width: 100%;
-  &:focus {
-    outline: none;
-    border-color: ${props => props.theme.txt};
-  }
-  &::placeholder {
-    color: ${props => props.theme.inputBorder};
-  }
+  ${css`
+    ${InputBase}
+  `}
 `
 
 const InputWrapper = styled.div`
-  p {
-  }
+  flex-grow: 2;
+  margin-bottom: 0;
+  position: relative;
+`
+
+const Message = styled.p`
+  top: 100%;
+  margin: 4px 0px 0px;
+  font-size: 11px;
+  position: absolute;
+  left: 2px;
+  ${props =>
+    props.error &&
+    css`
+      color: ${props => props.theme.error};
+    `}
 `
 
 export default (props: Object) => {
-  return <InputStyled {...props} />
+  const { message = '', error = true } = props
+
+  return (
+    <InputWrapper>
+      <InputStyled {...props} />
+      <Message error={error} visible={message && message !== ''}>
+        {message}
+      </Message>
+    </InputWrapper>
+  )
 }

@@ -64,7 +64,6 @@ export const getAddressPoc = ({
       body: JSON.stringify({ query: querySearch, variables }),
     },
   ).then(res => res.json())
-  console.log('result', result)
   dispatch({
     type: GET_ADDRESS_POC,
     payload: result.data,
@@ -80,7 +79,6 @@ export const getCategories = () => async dispatch => {
       body: JSON.stringify({ query: queryCategories }),
     },
   ).then(res => res.json())
-  console.log('result', result)
   dispatch({
     type: GET_CATEGORIES,
     payload: result.data,
@@ -106,7 +104,6 @@ export const getProducts = ({
       body: JSON.stringify({ query: queryProducts, variables }),
     },
   ).then(res => res.json())
-  console.log('result', result)
   dispatch({
     type: GET_PRODUCTS,
     payload: result.data,

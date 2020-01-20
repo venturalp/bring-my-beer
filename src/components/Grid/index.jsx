@@ -6,6 +6,7 @@ const Grid = styled.div`
   display: flex;
   justify-content: ${props => props.justify || 'center'};
   align-items: ${props => props.valign || 'center'};
+  flex-wrap: ${props => props.wrap || 'nowrap'};
   ${props =>
     props.container &&
     css`

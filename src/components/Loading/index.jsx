@@ -9,6 +9,7 @@ const Loading = styled(Grid)`
   bottom: 0;
   right: 0;
   top: 0;
+  z-index: 10;
   .bg {
     background-color: rgba(0, 0, 0, 0.4);
     width: 100%;
