@@ -8,7 +8,7 @@ import IcoSearch from '../../assets/search.svg'
 import IcoPin from '../../assets/pin.svg'
 import Grid from '../Grid'
 import { getLocation } from '../../utils/location'
-import { setPosition, getProducts } from '../../actions'
+import { setPosition, getProducts, setIsLoading } from '../../actions'
 
 const SearchBar = styled(Grid)`
   width: 100%;
@@ -30,6 +30,7 @@ type SearchBarProps = {
   className?: string,
   value: string,
   onChange: void => void,
+  name?: string,
 }
 
 export default ({
@@ -40,6 +41,7 @@ export default ({
   className,
   value,
   onChange,
+  name,
 }: SearchBarProps) => {
   const [currentLocation, setCurrentLocation] = useState([])
   const [errorMessage, setErrorMessage] = useState('')
@@ -62,6 +64,7 @@ export default ({
   }
 
   const handlePin = e => {
+    dispatch(setIsLoading(true))
     getLocation(coordinates => {
       setCurrentLocation([
         coordinates.coords.latitude,
@@ -86,6 +89,7 @@ export default ({
         onChange={onChange}
         message={errorMessage}
         error={errorMessage !== ''}
+        name={name}
       />
       <IcoSearch height={35} onClick={validateSearch} />
       {hasPin && <IcoPin height={35} onClick={handlePin} />}

@@ -4,6 +4,7 @@ import {
   SET_POSITION,
   GET_ADDRESS_POC,
   GET_CATEGORIES,
+  GET_PRODUCTS,
 } from '../actions/types'
 import _get from 'lodash/get'
 
@@ -46,6 +47,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         categories: _get(action.payload, 'allCategory', []),
+      }
+    case GET_PRODUCTS:
+      return {
+        ...state,
+        products: _get(action.payload, 'poc.products', []),
       }
     default:
       return state

@@ -44,14 +44,12 @@ const Home = () => {
   useEffect(() => {
     if (results.length && shouldRedirect) {
       doAfterSearch()
-    } else {
-      dispatch(setIsLoading(false))
     }
   }, [results])
 
   useEffect(() => {
-    dispatch(setIsLoading(false))
     if (addressPoc && addressPoc.id) {
+      dispatch(setIsLoading(false))
       history.push('/results')
     }
   }, [addressPoc])

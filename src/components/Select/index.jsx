@@ -1,11 +1,20 @@
 import React, { type Node, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { InputBase } from '../../utils/styles'
+import arrow from '../../assets/arrow.png'
 
 const Select = styled.select`
   ${css`
     ${InputBase}
   `}
+  appearance: none;
+  background-image: url(${arrow});
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+  padding-right: 30px;
+  & option[disabled] {
+    color: ${props => props.theme.inputBorder};
+  }
 `
 
 type SelectProps = {
@@ -14,6 +23,7 @@ type SelectProps = {
   value: string,
   onChange: string => void,
   className: string,
+  name: string,
 }
 
 export default ({
@@ -22,18 +32,12 @@ export default ({
   value,
   onChange,
   className,
+  name,
 }: SelectProps) => {
-  const [selectValue, setSelectValue] = useState(value)
-
-  const handleChange = e => {
-    setSelectValue(e.target.value)
-    if (onChange) onChange(e.target.value)
-  }
-
   return (
-    <Select value={selectValue} onChange={handleChange} className={className}>
+    <Select value={value} onChange={onChange} className={className} name={name}>
       {placeholder && (
-        <option disabled value={-1}>
+        <option disabled value={0} className="empty">
           {placeholder}
         </option>
       )}

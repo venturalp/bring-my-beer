@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { getCategories, setIsLoading } from '../actions/index'
+import { getCategories, setIsLoading, getProducts } from '../actions/index'
 import Grid from '../components/Grid'
 import Select from '../components/Select'
 import SearchBar from '../components/SearchBar'
@@ -25,28 +25,47 @@ const SearchBarStyle = styled(SearchBar)`
 export default () => {
   const dispatch = useDispatch()
   const history = useHistory()
-  const { formValues, setFormValues } = useState({
-    searchTxt: '',
-    category: 0,
+  const [formValues, setFormValues] = useState({
+    search: '',
+    categoryId: 0,
   })
+
   const content = useSelector(({ generalReducer }) => {
     return generalReducer
   })
+
   const categories = useSelector(({ generalReducer }) => {
     return generalReducer.categories
   })
 
-  const doSearch = useEffect(() => {
+  const handleChange = e => {
+    setFormValues({ ...formValues, [e.target.name]: e.target.value })
+  }
+
+  const doSearch = () => {
+    const searchData = {
+      ...formValues,
+      id: content.addressPoc.id,
+    }
+    dispatch(setIsLoading(true))
+    dispatch(getProducts(searchData))
+  }
+  useEffect(() => {
     if (!content.addressPoc) {
       history.push('/')
     }
     dispatch(setIsLoading(true))
     dispatch(getCategories())
+    return () => dispatch(setIsLoading(false))
   }, [])
 
   useEffect(() => {
     if (categories && categories.length) dispatch(setIsLoading(false))
   }, [categories])
+
+  useEffect(() => {
+    dispatch(setIsLoading(false))
+  }, [content.products])
 
   return (
     <Grid container justify="space-between">
@@ -55,12 +74,18 @@ export default () => {
           hasPin={false}
           placeholder="busque aqui"
           doSearch={doSearch}
+          onChange={handleChange}
+          value={formValues && formValues.search}
+          name="search"
         />
         <Grid>
           <Select
             placeholder="Selecione uma categoria"
-            value={-1}
+            value={formValues && formValues.categoryId}
             className="result-select"
+            name="categoryId"
+            onChange={handleChange}
+            doSearch={doSearch}
           >
             {categories &&
               categories.map(category => (
@@ -69,7 +94,9 @@ export default () => {
                 </option>
               ))}
           </Select>
-          <ButtonStyled className="result-button">Pesquisar</ButtonStyled>
+          <ButtonStyled className="result-button" onClick={doSearch}>
+            Pesquisar
+          </ButtonStyled>
         </Grid>
       </GridSearch>
     </Grid>

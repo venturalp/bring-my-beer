@@ -93,7 +93,7 @@ export const getProducts = ({
   const variables = {
     id,
     search,
-    categoryId,
+    categoryId: parseInt(categoryId, 10),
   }
 
   const result = await fetch(
