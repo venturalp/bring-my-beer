@@ -7,6 +7,7 @@ import Grid from '../components/Grid'
 import Select from '../components/Select'
 import SearchBar from '../components/SearchBar'
 import Button from '../components/Button'
+import ProductList from '../containers/ProductList'
 
 const GridSearch = styled(Grid)`
   width: 100%;
@@ -36,6 +37,10 @@ export default () => {
 
   const categories = useSelector(({ generalReducer }) => {
     return generalReducer.categories
+  })
+
+  const products = useSelector(({ generalReducer }) => {
+    return generalReducer.products
   })
 
   const handleChange = e => {
@@ -68,7 +73,7 @@ export default () => {
   }, [content.products])
 
   return (
-    <Grid container justify="space-between">
+    <Grid container justify="space-between" wrap="wrap">
       <GridSearch valing="flex-start" wrap="wrap" justify="flex-start">
         <SearchBarStyle
           hasPin={false}
@@ -99,6 +104,7 @@ export default () => {
           </ButtonStyled>
         </Grid>
       </GridSearch>
+      {products && <ProductList products={products} />}
     </Grid>
   )
 }
