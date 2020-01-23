@@ -31,6 +31,7 @@ type SearchBarProps = {
   value: string,
   onChange: void => void,
   name?: string,
+  validationMessage: string,
 }
 
 export default ({
@@ -42,6 +43,7 @@ export default ({
   value = '',
   onChange,
   name,
+  validationMessage = 'Por favor, preencha com um endereço válido!',
 }: SearchBarProps) => {
   const [currentLocation, setCurrentLocation] = useState([])
   const [errorMessage, setErrorMessage] = useState('')
@@ -56,7 +58,7 @@ export default ({
 
   const validateSearch = () => {
     if (!value) {
-      setErrorMessage('Por favor, preencha com um endereço válido!')
+      setErrorMessage(validationMessage)
     } else {
       setErrorMessage('')
       doSearch()

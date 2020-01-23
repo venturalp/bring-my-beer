@@ -82,6 +82,7 @@ export default () => {
           onChange={handleChange}
           value={formValues && formValues.search}
           name="search"
+          validationMessage="Por favor preencha com o nome do produto que deseja buscar"
         />
         <Grid>
           <Select
