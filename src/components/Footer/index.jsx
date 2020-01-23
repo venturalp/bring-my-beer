@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
-import logo from '../../assets/logo.png'
 import Grid from '../Grid'
+import Button from '../Button'
 import styled, { css } from 'styled-components'
 
 const Footer = styled.footer`

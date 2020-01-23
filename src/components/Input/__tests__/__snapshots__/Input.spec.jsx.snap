@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input Component render default Input 1`] = `<_default />`;
+
+exports[`Input Component render default Input with error message 1`] = `
+<Input__InputWrapper>
+  <Input__InputStyled
+    error={true}
+    message="Foo bar"
+  />
+  <Input__Message
+    error={true}
+    visible={true}
+  >
+    Foo bar
+  </Input__Message>
+</Input__InputWrapper>
+`;
+
+exports[`Input Component render default Input with message (not error) 1`] = `
+<Input__InputWrapper>
+  <Input__InputStyled
+    message="Foo bar"
+  />
+  <Input__Message
+    error={false}
+    visible={true}
+  >
+    Foo bar
+  </Input__Message>
+</Input__InputWrapper>
+`;

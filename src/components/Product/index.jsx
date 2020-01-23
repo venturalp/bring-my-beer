@@ -1,10 +1,11 @@
 // @flow
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { toBRL } from '../../utils/formater'
+import { toBRL } from '../../utils/formatter'
 import Beer from '../../assets/beer.svg'
 import Grid from '../Grid'
 import Button from '../Button'
+import { lighten } from 'polished'
 
 const ProductWrapper = styled.li`
   width: 100%;
@@ -29,6 +30,11 @@ const Product = styled.div`
   text-align: center;
   display: flex;
   flex-direction: column;
+  transition: all 0.4s linear;
+  background-color: #fff;
+  &:hover {
+    background-color: ${props => lighten(0.2, props.theme.mainColor)};
+  }
   h2 {
     font-size: 12px;
     margin: 0 0 4px 0;

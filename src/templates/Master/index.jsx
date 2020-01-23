@@ -31,7 +31,7 @@ const TemplateMaster = ({ children }: TemplateProps) => {
     <>
       <div ref={wrapper}>
         <Header />
-        <Grid container justify="space-between">
+        <Grid container justify="space-between" wrap="wrap">
           {children}
         </Grid>
       </div>

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button component render default button 1`] = `
+<_default>
+  Foo bar
+</_default>
+`;
+
+exports[`Button component render error button 1`] = `
+<_default
+  appearance="success"
+>
+  Foo bar
+</_default>
+`;
+
+exports[`Button component render success button 1`] = `
+<_default
+  appearance="success"
+>
+  Foo bar
+</_default>
+`;

@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBar Component Render SearchBar with no pin 1`] = `
+<SearchBar>
+  <_default
+    error={false}
+    message=""
+    onChange={[MockFunction]}
+    onKeyDown={[Function]}
+    placeholder="digite seu endereço aqui"
+    value=""
+  />
+  <search.svg
+    height={35}
+    onClick={[Function]}
+  />
+</SearchBar>
+`;
+
+exports[`SearchBar Component Render default SerchBar 1`] = `
+<SearchBar>
+  <_default
+    error={false}
+    message=""
+    onChange={[MockFunction]}
+    onKeyDown={[Function]}
+    placeholder="digite seu endereço aqui"
+    value=""
+  />
+  <search.svg
+    height={35}
+    onClick={[Function]}
+  />
+  <pin.svg
+    height={35}
+    onClick={[Function]}
+  />
+</SearchBar>
+`;

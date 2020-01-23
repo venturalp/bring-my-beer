@@ -77,7 +77,7 @@ export default () => {
       <GridSearch valing="flex-start" wrap="wrap" justify="flex-start">
         <SearchBarStyle
           hasPin={false}
-          placeholder="busque aqui"
+          placeholder="busque seu produto"
           doSearch={doSearch}
           onChange={handleChange}
           value={formValues && formValues.search}

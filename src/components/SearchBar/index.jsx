@@ -39,7 +39,7 @@ export default ({
   placeholder = 'digite seu endereço aqui',
   doAfterSearch,
   className,
-  value,
+  value = '',
   onChange,
   name,
 }: SearchBarProps) => {
@@ -63,14 +63,20 @@ export default ({
     }
   }
 
-  const handlePin = e => {
+  const handlePin = async e => {
     dispatch(setIsLoading(true))
-    getLocation(coordinates => {
+    setErrorMessage('')
+    const resultLocation = await getLocation(coordinates => {
       setCurrentLocation([
         coordinates.coords.latitude,
         coordinates.coords.longitude,
       ])
     })
+
+    if (!resultLocation) {
+      dispatch(setIsLoading(false))
+      setErrorMessage('Não foi possível obter sua localização')
+    }
   }
 
   useEffect(() => {

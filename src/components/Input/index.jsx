@@ -28,7 +28,7 @@ const Message = styled.p`
 `
 
 export default (props: Object) => {
-  const { message = '', error = true } = props
+  const { message = '', error = false } = props
 
   return (
     <InputWrapper>

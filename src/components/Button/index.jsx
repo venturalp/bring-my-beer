@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components'
 import { lighten } from 'polished'
 
 const Button = styled.div`
+  user-select: none;
   border: 0px;
   border-radius: ${props => props.theme.buttonRadius};
   background-color: ${props =>

@@ -16,10 +16,18 @@ import Grid from '../components/Grid'
 const HomeWrapper = styled(Grid)`
   width: 100%;
 `
+const Message = styled.p`
+  color: ${props => props.theme.error};
+  font-size: 12px;
+  text-align: center;
+  margin: 10px 0 0;
+  width: 100%;
+`
 
 const Home = () => {
   const [shouldRedirect, setShouldRedirect] = useState(false)
   const [searchText, setSearchText] = useState('')
+  const [feedbackMessage, setFeedbackMessage] = useState('')
   const results = useSelector(({ generalReducer }) => generalReducer.position)
   const addressPoc = useSelector(
     ({ generalReducer }) => generalReducer.addressPoc,
@@ -32,6 +40,7 @@ const Home = () => {
   }
 
   const doSearch = () => {
+    setFeedbackMessage('')
     dispatch(setIsLoading(true))
     dispatch(searchByAddress(searchText))
     setShouldRedirect(true)
@@ -51,12 +60,17 @@ const Home = () => {
     if (addressPoc && addressPoc.id) {
       dispatch(setIsLoading(false))
       history.push('/results')
+    } else if (addressPoc !== null) {
+      dispatch(setIsLoading(false))
+      setFeedbackMessage(
+        'Não foi possível encontrar resultados para o endereço informado',
+      )
     }
   }, [addressPoc])
 
   return (
     <TemplateMaster>
-      <HomeWrapper>
+      <HomeWrapper wrap="wrap">
         <SearchBar
           doSearch={doSearch}
           doAfterSearch={doAfterSearch}
@@ -64,6 +78,7 @@ const Home = () => {
           value={searchText}
         />
       </HomeWrapper>
+      <Message>{feedbackMessage}</Message>
     </TemplateMaster>
   )
 }

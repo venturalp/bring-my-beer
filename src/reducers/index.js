@@ -11,6 +11,7 @@ import _get from 'lodash/get'
 const INITIAL_STATE = {
   position: [],
   isLoading: false,
+  addressPoc: null,
 }
 
 export default (state = INITIAL_STATE, action) => {

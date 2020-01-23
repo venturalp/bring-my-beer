@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Product component Render Product component 1`] = `
+<Product__ProductWrapper>
+  <Product>
+    <h2>
+      Foo bar
+    </h2>
+    <Product__Content>
+      <beer.svg
+        width={45}
+      />
+    </Product__Content>
+    <p>
+      R$ 
+      2,99
+    </p>
+    <Product__ButtonHolder
+      justify="space-between"
+    >
+      <Product__CustomButton
+        appearance="error"
+        className="teste"
+        disabled={true}
+        onClick={[Function]}
+      >
+        -
+      </Product__CustomButton>
+      <p>
+        0
+      </p>
+      <Product__CustomButton
+        appearance="success"
+        onClick={[Function]}
+      >
+        +
+      </Product__CustomButton>
+    </Product__ButtonHolder>
+  </Product>
+</Product__ProductWrapper>
+`;
