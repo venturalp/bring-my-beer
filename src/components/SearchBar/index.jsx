@@ -31,7 +31,7 @@ type SearchBarProps = {
   value: string,
   onChange: void => void,
   name?: string,
-  validationMessage: string,
+  validationMessage?: string,
 }
 
 export default ({
