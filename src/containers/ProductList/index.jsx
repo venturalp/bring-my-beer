@@ -1,12 +1,13 @@
 // @flow
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import Grid from '../../components/Grid'
 import Product from '../../components/Product'
 import _get from 'lodash/get'
 
-const ProductList = styled(Grid)`
+const ProductList = styled.ul`
   padding: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
 `
 
 type ProductProps = {

@@ -8,7 +8,6 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 
 const distPath = 'dist'
 const environment = process.env.NODE_ENV.trim()
-console.log('environment', environment)
 
 const uglifyConfig = new UglifyJsPlugin({
   test: /\.js(\?.*)?$/i,
@@ -103,17 +102,7 @@ export default {
     filename: `js/index${environment === 'development' ? '' : '.min'}.js`, // it sets the name according to the development/production mode
     publicPath: '/',
   },
-  plugins: [
-    // define plugins used by webpack and its properties/settings
-    // [`${distPath}/*`], { root: __dirname }
-    new CleanFolder(),
-    htmlPlugin,
-    new webpack.DefinePlugin({
-      'process.env': {
-        VARIABLE: JSON.stringify('testando'), // sending process.env varible called VARIABLE with 'testando' value
-      },
-    }),
-  ],
+  plugins: [new CleanFolder(), htmlPlugin],
   devServer: {
     // webpack dev server settings
     contentBase: path.join(__dirname, distPath), // point to the path to run on server
